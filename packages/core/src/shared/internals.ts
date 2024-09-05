@@ -880,6 +880,17 @@ export const batchSubmit = async <T>(
   return results
 }
 
+const shouldValidate = (field: Field) => {
+  const validatePattern = field.props.validatePattern ??
+    field.form.props.validatePattern ?? ['editable']
+  const validateDisplay = field.props.validateDisplay ??
+    field.form.props.validateDisplay ?? ['visible']
+  return (
+    validatePattern.includes(field.pattern) &&
+    validateDisplay.includes(field.display)
+  )
+}
+
 export const batchValidate = async (
   target: Form | Field,
   pattern: FormPathPattern,
@@ -887,7 +898,7 @@ export const batchValidate = async (
 ) => {
   if (isForm(target)) target.setValidating(true)
   else {
-    if (target.pattern !== 'editable' || target.display !== 'visible') return
+    if (!shouldValidate(target)) return
   }
   const tasks = []
   target.query(pattern).forEach((field) => {
@@ -945,7 +956,7 @@ export const validateSelf = batch.bound(
       }
     }
 
-    if (target.pattern !== 'editable' || target.display !== 'visible') return {}
+    if (!shouldValidate(target)) return {}
     start()
     if (!triggerType) {
       const allTriggerTypes = parseValidatorDescriptions(

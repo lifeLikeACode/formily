@@ -789,6 +789,8 @@ interface IFieldFactoryProps {
   readPretty?: boolean //Whether the field is in the read state
   dataSource?: any[] //Field data source
   validateFirst?: boolean //Does the field verification only verify the first illegal rule?
+  validatePattern?: ('editable' | 'disabled' | 'readOnly' | 'readPretty')[] // Which patterns the validator can run in
+  validateDisplay?: ('none' | 'hidden' | 'visible')[] // Which displays the validator can run in
   validator?: FieldValidator //Field validator
   decorator?: any[] //Field decorator, the first element represents the component reference, the second element represents the component attribute
   component?: any[] //Field component, the first element represents the component reference, the second element represents the component attribute

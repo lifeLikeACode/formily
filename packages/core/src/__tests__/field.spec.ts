@@ -2402,3 +2402,50 @@ test('onFocus and onBlur with invalid target value', async () => {
     'The field value is a invalid url',
   ])
 })
+
+test('validatePattern and validateDisplay', async () => {
+  const form = attach(
+    createForm<any>({
+      validatePattern: ['editable'],
+      validateDisplay: ['visible'],
+    })
+  )
+  const field1 = attach(
+    form.createField({
+      name: 'a',
+      required: true,
+    })
+  )
+  const field2 = attach(
+    form.createField({
+      name: 'b',
+      required: true,
+      validatePattern: ['readOnly'],
+      validateDisplay: ['hidden'],
+    })
+  )
+  const field3 = attach(
+    form.createField({
+      name: 'c',
+      required: true,
+      validatePattern: ['readOnly', 'editable'],
+      validateDisplay: ['hidden', 'visible'],
+    })
+  )
+
+  try {
+    await form.validate()
+  } catch {}
+  expect(field1.selfErrors.length).toBe(1)
+  expect(field2.selfErrors.length).toBe(0)
+  expect(field3.selfErrors.length).toBe(1)
+
+  form.setPattern('readOnly')
+  form.setDisplay('hidden')
+  try {
+    await form.validate()
+  } catch {}
+  expect(field1.selfErrors.length).toBe(0)
+  expect(field2.selfErrors.length).toBe(1)
+  expect(field3.selfErrors.length).toBe(1)
+})

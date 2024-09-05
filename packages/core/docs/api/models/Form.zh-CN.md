@@ -789,6 +789,8 @@ interface IFieldFactoryProps {
   readPretty?: boolean //字段是否为阅读态
   dataSource?: any[] //字段数据源
   validateFirst?: boolean //字段校验是否只校验第一个非法规则
+  validatePattern?: ('editable' | 'disabled' | 'readOnly' | 'readPretty')[] // validator 可以在哪些 pattern 下运行
+  validateDisplay?: ('none' | 'hidden' | 'visible')[] // validator 可以在哪些 display 下运行
   validator?: FieldValidator //字段校验器
   decorator?: any[] //字段装饰器，第一个元素代表组件引用，第二个元素代表组件属性
   component?: any[] //字段组件，第一个元素代表组件引用，第二个元素代表组件属性
