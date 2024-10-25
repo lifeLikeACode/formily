@@ -116,17 +116,11 @@ const markupProps = {
     type: Boolean,
     default: undefined,
   },
-  xSlot: {
-    type: String,
-    default: undefined,
-  },
 }
 
 export function createSchemaField<
   Components extends SchemaVueComponents = SchemaVueComponents
->(
-  options: ISchemaFieldVueFactoryOptions<Components> = {}
-): SchemaFieldComponents {
+>(options: ISchemaFieldVueFactoryOptions<Components> = {}): SchemaFieldComponents {
   const SchemaField = {
     name: 'SchemaField',
     inheritAttrs: false,
