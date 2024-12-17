@@ -116,10 +116,6 @@ const markupProps = {
     type: Boolean,
     default: undefined,
   },
-  xSlot: {
-    type: String,
-    default: undefined,
-  },
 }
 
 export function createSchemaField<
